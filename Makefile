@@ -7,3 +7,6 @@ CC = $(shell $(MRB_CONFIG) --cc)
 
 test: src/test.c
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS) $(LIBMRUBY)
+
+ccls: .ccls
+	ruby ccls.rb
