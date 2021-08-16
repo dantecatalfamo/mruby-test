@@ -2,13 +2,11 @@ MRB_DIR = './mruby'
 MRB_CONFIG = "#{MRB_DIR}/bin/mruby-config"
 MRBC = "#{MRB_DIR}/bin/mrbc"
 
-desc "Pull in mruby from git"
-directory "mruby" do
-  sh "git submodule update"
-end
-
 desc "Make sure mruby is compiled"
-file MRB_CONFIG do
+file "#{MRB_CONFIG}" do
+  unless File.exists? "#{MRB_DIR}/Rakefile"
+    sh "git submodule update --init"
+  end
   Dir.chdir MRB_DIR do
     sh "rake"
   end
@@ -28,7 +26,7 @@ file "bin/test": ["src/test.c", "src/compiled.c", :set_params] do |t|
 end
 
 desc "Generate the .ccls file for Emacs autocomplete"
-file ".ccls" do |t|
+file ".ccls": MRB_DIR do |t|
   ruby 'ccls.rb'
 end
 
