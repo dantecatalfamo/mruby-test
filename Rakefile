@@ -8,7 +8,7 @@ CC = `#{MRB_CONFIG} --cc`.chomp
 
 desc "Compile the main executable"
 file "test": ["src/test.c", "src/compiled.c"] do |t|
-  sh "#{CC} #{CFLAGS} -o #{t.name} #{t.prerequisites[0]} #{LDFLAGS} #{LIBS} #{LIBMRUBY}"
+  sh "#{CC} #{CFLAGS} -o #{t.name} #{t.prerequisites.first} #{LDFLAGS} #{LIBS} #{LIBMRUBY}"
 end
 
 desc "Generate the .ccls file for Emacs autocomplete"
@@ -18,7 +18,7 @@ end
 
 desc "Compile src/compile.rb to mruby byte code"
 file "src/compiled.c": "src/compiled.rb" do |t|
-  sh "#{MRBC} -Bcompiled #{t.prerequisites[0]}"
+  sh "#{MRBC} -Bcompiled #{t.prerequisites.first}"
 end
 
 task default: ["test", ".ccls"]
