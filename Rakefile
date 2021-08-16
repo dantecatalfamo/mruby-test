@@ -7,8 +7,8 @@ LIBMRUBY = `#{MRB_CONFIG} --libmruby-path`.chomp
 CC = `#{MRB_CONFIG} --cc`.chomp
 
 desc "Compile the main executable"
-file "test": ["src/test.c"] do |t|
-  sh "#{CC} #{CFLAGS} -o #{t.name} #{t.prerequisites.join(' ')} #{LDFLAGS} #{LIBS} #{LIBMRUBY}"
+file "test": ["src/test.c", "src/compiled.c"] do |t|
+  sh "#{CC} #{CFLAGS} -o #{t.name} #{t.prerequisites[0]} #{LDFLAGS} #{LIBS} #{LIBMRUBY}"
 end
 
 desc "Generate the .ccls file for Emacs autocomplete"
