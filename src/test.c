@@ -10,7 +10,7 @@ int main(int argc, char **argv) {
         puts("No state!");
         return 1;
     }
-    mrb_load_string(mrb, "puts 'hello, world!'");
+    mrb_load_string(mrb, "puts 'Hello from a string!'");
     fp = fopen("src/test.rb", "r");
     if (!fp)
         perror("src/test.rb");

@@ -1,6 +1,6 @@
 class Interesting
   def test
-    puts "Compiled script"
+    puts "Hello from the compiled script"
   end
 end
 
